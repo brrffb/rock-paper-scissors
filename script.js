@@ -1,60 +1,68 @@
 function game() {
-	for (let i = 0; i < 5; i++) {
-		playerSelection = prompt("rock, paper or scissors?");
+	const roundResultsDiv = document.querySelector("#results");
+	const gameWinnerDiv = document.querySelector("#matchWinner");
+	const playerPointsDiv = document.querySelector("#playerPoints");
+	const computerPointsDiv = document.querySelector("#computerPoints");
+
+	let playerPoints = 0;
+	let computerPoints = 0;
+
+	const buttons = document.querySelectorAll("button");
+	const rockBtn = document.querySelector("#rock");
+	const paperBtn = document.querySelector("#paper");
+	const scissorsBtn = document.querySelector("#scissors");
+
+	rockBtn.addEventListener("click", () => {
+		playRound("rock");
+	});
+	paperBtn.addEventListener("click", () => {
+		playRound("paper");
+	});
+	scissorsBtn.addEventListener("click", () => {
+		playRound("scissors");
+	});
+
+	function playRound(playerSelection) {
 		computerSelection = getComputerChoice();
-		playRound(playerSelection, computerSelection);
-		alert(
-			"you chose " +
-				playerSelection +
-				" and the computer chose " +
-				computerSelection
-		);
-		if (winner === "player") {
-			alert("you won!");
+
+		if (
+			(playerSelection === "rock" && computerSelection === "scissors") ||
+			(playerSelection === "scissors" && computerSelection === "paper") ||
+			(playerSelection === "paper" && computerSelection === "rock")
+		) {
 			playerPoints++;
-		} else if (winner === "computer") {
-			alert("you lost!");
+			roundResultsDiv.textContent =
+				"You win! " + playerSelection + " beats " + computerSelection;
+		} else if (
+			(playerSelection === "scissors" && computerSelection === "rock") ||
+			(playerSelection === "paper" && computerSelection === "scissors") ||
+			(playerSelection === "rock" && computerSelection === "paper")
+		) {
 			computerPoints++;
+			roundResultsDiv.textContent =
+				"You lose! " + computerSelection + " beats " + playerSelection;
 		} else {
-			alert("tie!");
+			roundResultsDiv.textContent = "It's a tie!";
+		}
+		playerPointsDiv.textContent = `Your points: ${playerPoints}`;
+		computerPointsDiv.textContent = `Computer's points: ${computerPoints}`;
+
+		if (playerPoints === 5) {
+			gameWinnerDiv.textContent = "You won the game!";
+			buttons.forEach((button) => (button.disabled = true));
+		} else if (computerPoints === 5) {
+			gameWinnerDiv.textContent = "Computer won the game!";
+			buttons.forEach((button) => (button.disabled = true));
+		} else if (playerPoints === 5 || computerPoints === 5) {
+			gameWinnerDiv.textContent = "It's a tie!";
+			buttons.forEach((button) => (button.disabled = true));
 		}
 	}
-	if (playerPoints > computerPoints) {
-		alert("player wins!");
-	} else if (computerPoints > playerPoints) {
-		alert("computer wins!");
-	} else {
-		alert("its a tie!");
+
+	function getComputerChoice() {
+		const choices = ["rock", "paper", "scissors"];
+		return choices[Math.floor(Math.random() * choices.length)];
 	}
 }
-function playRound(playerSelection, computerSelection) {
-	if (
-		(playerSelection === "rock" && computerSelection === "scissors") ||
-		(playerSelection === "scissors" && computerSelection === "paper") ||
-		(playerSelection === "paper" && computerSelection === "rock")
-	) {
-		winner = "player";
-	} else if (
-		(playerSelection === "scissors" && computerSelection === "rock") ||
-		(playerSelection === "paper" && computerSelection === "scissors") ||
-		(playerSelection === "rock" && computerSelection === "paper")
-	) {
-		winner = "computer";
-	} else {
-		winner = "tie";
-	}
-	return winner;
-}
 
-function getComputerChoice() {
-	const choices = ["rock", "paper", "scissors"];
-	return choices[Math.floor(Math.random() * choices.length)];
-}
-
-let playerPoints = 0;
-let computerPoints = 0;
-
-let winner;
-let playerSelection;
-let computerSelection;
 game();
