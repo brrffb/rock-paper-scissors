@@ -1,13 +1,14 @@
 function game() {
-	const roundResultsDiv = document.querySelector("#results");
-	const gameWinnerDiv = document.querySelector("#matchWinner");
+	const roundResultsDiv = document.querySelector("#roundResults");
+	const matchResults = document.querySelector("#matchResults");
 	const playerPointsDiv = document.querySelector("#playerPoints");
 	const computerPointsDiv = document.querySelector("#computerPoints");
+	const popupContainer = document.querySelector("#popup-container");
+	const playAgainBtn = document.querySelector("#playAgainBtn");
 
 	let playerPoints = 0;
 	let computerPoints = 0;
 
-	const buttons = document.querySelectorAll("button");
 	const rockBtn = document.querySelector("#rock");
 	const paperBtn = document.querySelector("#paper");
 	const scissorsBtn = document.querySelector("#scissors");
@@ -20,6 +21,15 @@ function game() {
 	});
 	scissorsBtn.addEventListener("click", () => {
 		playRound("scissors");
+	});
+
+	playAgainBtn.addEventListener("click", () => {
+		popupContainer.classList.remove("show");
+		playerPoints = 0;
+		computerPoints = 0;
+		roundResultsDiv.textContent = "";
+		playerPointsDiv.textContent = "Player's score: ?";
+		computerPointsDiv.textContent = "Computers's score: ?";
 	});
 
 	function playRound(playerSelection) {
@@ -44,18 +54,18 @@ function game() {
 		} else {
 			roundResultsDiv.textContent = "It's a tie!";
 		}
-		playerPointsDiv.textContent = `Your points: ${playerPoints}`;
-		computerPointsDiv.textContent = `Computer's points: ${computerPoints}`;
+		playerPointsDiv.textContent = `Player's score: ${playerPoints}`;
+		computerPointsDiv.textContent = `Computer's score: ${computerPoints}`;
 
 		if (playerPoints === 5) {
-			gameWinnerDiv.textContent = "You won the game!";
-			buttons.forEach((button) => (button.disabled = true));
+			popupContainer.classList.add("show");
+			matchResults.textContent = "You won!";
 		} else if (computerPoints === 5) {
-			gameWinnerDiv.textContent = "Computer won the game!";
-			buttons.forEach((button) => (button.disabled = true));
+			popupContainer.classList.add("show");
+			matchResults.textContent = "You lost!";
 		} else if (playerPoints === 5 || computerPoints === 5) {
-			gameWinnerDiv.textContent = "It's a tie!";
-			buttons.forEach((button) => (button.disabled = true));
+			popupContainer.classList.add("show");
+			matchResults.textContent = "It's a draw!";
 		}
 	}
 

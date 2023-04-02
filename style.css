@@ -1,0 +1,119 @@
+:root {
+	--bg-color: #2d2d30;
+	--white-color: #ddd;
+	--gray-color: #333;
+	--header-bg-color: #212121;
+	--black-color: #1b1a1a;
+	--light-blue-color: #9abddc;
+	--blue-color: #23adff;
+	--blue-gray-color: #404d55;
+}
+
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--white-color);
+	font-family: "Roboto", sans-serif;
+}
+
+header {
+	background-color: var(--header-bg-color);
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3.75rem;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 3rem;
+}
+
+button {
+	background-color: var(--gray-color);
+	border: 2px solid var(--white-color);
+	border-radius: 7px;
+	color: var(--white-color);
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin: 0 0.4em;
+	padding: 0.625em 0.625em;
+	cursor: pointer;
+	transition: 0.35s ease-out;
+	box-shadow: 0 0 10px 1.5px var(--black-color);
+}
+
+button:hover {
+	background-color: var(--light-blue-color);
+	color: var(--black-color);
+	transform: scale(1.1);
+	box-shadow: 0 0 3px 2px var(--blue-color);
+}
+
+.scores {
+	font-weight: 700;
+	font-size: 1.3rem;
+	display: flex;
+	justify-content: center;
+	gap: 3rem;
+}
+
+#roundResults {
+	opacity: 0.7;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.popup-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.4);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+.popup-container.show {
+	pointer-events: auto;
+	opacity: 1;
+}
+
+.popup {
+	width: 300px;
+	height: 150px;
+	border-radius: 7px;
+	box-shadow: 0 0 5px 1px var(--white-color);
+	padding: 0.625em 0.625em;
+	max-width: 100%;
+	opacity: 1;
+	background-color: var(--blue-gray-color);
+	text-align: center;
+}
