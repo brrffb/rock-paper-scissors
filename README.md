@@ -1,4 +1,4 @@
 # rock-paper-scissors
 
-A simple game I made for the Odin Project.  
+A simple rock paper scissors game made with JavaScript
 Live preview => https://brrffb.github.io/rock-paper-scissors/
